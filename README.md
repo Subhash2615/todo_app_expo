@@ -1,50 +1,81 @@
-# Welcome to your Expo app 👋
+# Todo Task Management Mobile Application
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Objective
 
-## Get started
+Develop a cross-platform Todo Task Management Mobile App that enables users to log in via Google and manage personal tasks on the go. The app supports full CRUD operations on tasks, with fields like title, description, due date, status, and priority. The UI is clean, intuitive, and responsive for both Android and iOS. Secure API integration with proper authentication and offline support is included.
 
-1. Install dependencies
+## Tech Stack
 
-   ```bash
-   npm install
-   ```
+- **Frontend:** React Native (Expo)
+- **Authentication:** Google Sign-In (OAuth)
+- **State & Storage:** React state, AsyncStorage (offline support)
+- **UI:** react-native-paper, gesture handler, reanimated
 
-2. Start the app
+## Features
 
-   ```bash
-   npx expo start
-   ```
+- Google Sign-In authentication
+- Full CRUD for tasks (title, description, due date, status, priority)
+- Local state management and persistent offline storage
+- Tabs, filters, and search for tasks
+- No data states, FAB for adding tasks
+- Smooth animations for list interactions
+- Pull-to-refresh, swipe-to-delete
+- Crash reporting ready (Sentry/Firebase Crashlytics integration point)
 
-In the output, you'll find options to open the app in a
+## Setup & Getting Started
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### 1. Install dependencies
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```sh
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Google OAuth Setup
 
-## Learn more
+1. Go to [Google Cloud Console](https://console.cloud.google.com/apis/credentials).
+2. Create OAuth credentials for your app:
+   - **Web:**
+     - Add redirect URI: `https://auth.expo.io/@your-username/todo_app_expo`
+     - Replace `your-username` with your Expo username.
+   - **Android/iOS:**
+     - Follow Expo/Google guides for package/bundle identifiers.
+3. Copy the generated client IDs into `app/login.tsx`:
 
-To learn more about developing your project with Expo, look at the following resources:
+```js
+const [request, response, promptAsync] = Google.useAuthRequest({
+  expoClientId: "YOUR_EXPO_CLIENT_ID",
+  iosClientId: "YOUR_IOS_CLIENT_ID",
+  androidClientId: "YOUR_ANDROID_CLIENT_ID",
+  webClientId: "YOUR_WEB_CLIENT_ID",
+});
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 3. Start the app
 
-## Join the community
+```sh
+npx expo start
+```
 
-Join our community of developers creating universal apps.
+- Scan the QR code with Expo Go (Android/iOS) or open in your browser.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Usage
+
+- **Login:** Sign in with Google to access your tasks.
+- **Task Management:** Add, edit, delete, and mark tasks as complete. Use filters/tabs to view All, Open, or Completed tasks. Search and sort tasks. Swipe to delete, pull to refresh.
+- **Logout:** Use the logout button in the app to sign out.
+
+## Project Structure
+
+- `app/` — Main app screens and navigation
+- `components/` — Reusable UI components
+- `constants/` — Theme/colors
+- `hooks/` — Custom hooks
+
+## Notes
+
+- For crash reporting, integrate Sentry or Firebase Crashlytics as needed.
+- All task data is stored locally for offline support.
+
+---
+
+For more details, see the code and comments in the project.
